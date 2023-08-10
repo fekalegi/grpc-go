@@ -1,0 +1,52 @@
+syntax = "proto3";
+option go_package = "./user";
+
+service UserService {
+  rpc CreateUser(UserRequest) returns (UserResponse);
+  rpc GetListUser(GetUserListRequest) returns (UserListResponse);
+  rpc GetUser(GetUserRequest) returns (UserResponse);
+  rpc UpdateUser(UserRequest) returns (UserResponse);
+  rpc DeleteUser(GetUserRequest) returns (DeleteUserResponse);
+}
+
+message User {
+  int32 ID = 1;
+  string Email = 2;
+  string UserName = 3;
+}
+
+message UserRequest {
+  string Email = 1;
+  string Password = 2;
+  string UserName = 3;
+}
+
+message UserResponse {
+  int32 ID = 1;
+  string Email = 2;
+  string UserName = 3;
+}
+
+message GetUserListRequest {
+  int32 page_number = 1;
+  int32 page_size = 2;
+}
+
+message UserListResponse {
+  repeated User users = 1;
+  PageInfo page_info = 2;
+}
+
+message PageInfo {
+  int32 total_items = 1;
+  int32 total_pages = 2;
+  int32 current_page = 3;
+}
+
+message GetUserRequest {
+  int32 id = 1;
+}
+
+message DeleteUserResponse {
+  string message = 1;
+}
